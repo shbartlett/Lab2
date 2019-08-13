@@ -114,12 +114,12 @@ function setGraticule(map, path){
 function joinData(countries, csvData){
         for (var i=0; i < csvData.length; i++){
             var csvRegion = csvData[i];
-            var csvKey = csvRegion.ISO_A3;
+            var csvKey = csvRegion.iso_a3;
 
             //loop through geojson to identify matching item from csv
             for (var a=0; a<countries.length; a++){
                 var geojsonProps = countries[a].properties; //the current region geojson properties
-                var geojsonKey = geojsonProps.ISO_A3; //the geojson primary key
+                var geojsonKey = geojsonProps.iso_a3; //the geojson primary key
                 //where there is primary key match, transfer csv data to geojson
                 if (geojsonKey == csvKey){
                     //assign attributes and values
@@ -142,7 +142,7 @@ function setEnumerationUnits(countries, map, path, colorScale){
      .enter()
      .append("path")
      .attr("class", function(d){
-         return "world " + d.properties.ISO_A3;
+         return "world " + d.properties.iso_a3;
      })
      .attr("d", path)
      .style("fill", function(d){
@@ -234,7 +234,7 @@ function setChart(csvData, colorScale){
             return b[expressed]-a[expressed]
         })
         .attr("class", function(d){
-            return "bars " + d.ISO_A3;
+            return "bars " + d.iso_a3;
         })
         .attr("width", chartInnerWidth / csvData.length - 1)
 
@@ -375,7 +375,7 @@ function updateChart(bars, n, colorScale){
  //highlight bars and corresponding location on map
 function highlight(props){
     //change stroke
-    var selected = d3.selectAll("." + props.ISO_A3)
+    var selected = d3.selectAll("." + props.iso_a3)
         .style("stroke", "#07f2f1")
         .style("stroke-width", "2");
     //dynamic label on mouseover
@@ -385,7 +385,7 @@ function highlight(props){
 
 //reset style on mouseout
 function dehighlight(props){
-    var selected = d3.selectAll("." + props.ISO_A3)
+    var selected = d3.selectAll("." + props.iso_a3)
         .style("stroke", function(){
             return getStyle(this, "stroke")
         })
@@ -416,7 +416,7 @@ function setLabel(props){
     var infolabel = d3.select("body")
         .append("div")
         .attr("class", "infolabel")
-        .attr("id", props.ISO_A3 + "_NAME_LONG")
+        .attr("id", props.iso_a3 + "_NAME_LONG")
         //.attr("id", props.country + "Country")
         .html(labelAttribute)
 
